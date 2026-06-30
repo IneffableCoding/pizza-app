@@ -6,6 +6,9 @@ import styles from "./Login.module.css";
 import { PREFIX } from "../../helpers/API";
 import axios, { AxiosError } from "axios";
 import { useState } from "react";
+import type { AppDispath } from "../../store/store";
+import { useDispatch } from "react-redux";
+import { userActions } from "../../store/user.slice";
 
 export type LoginForm = {
   email: {
@@ -23,6 +26,7 @@ export interface LoginResponse {
 export function Login() {
   const [error, setError] = useState<string | null>();
   const navigate = useNavigate();
+  const dispatch = useDispatch<AppDispath>();
 
   const submit = async (e) => {
     e.preventDefault();
@@ -36,10 +40,9 @@ export function Login() {
     try {
       const { data } = await axios.post<LoginResponse>(`${PREFIX}/auth/login`, {
         email,
-        password,
+        password
       });
-      console.log(data);
-      localStorage.setItem('jwt', data.access_token);
+      dispatch(userActions.addJwt(data.access_token));
       navigate('/');
     } catch (e) {
       if (e instanceof AxiosError) {
