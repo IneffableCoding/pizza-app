@@ -3,7 +3,7 @@ import { createRoot } from "react-dom/client";
 import "./index.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { Cart } from "./pages/Cart/Cart";
-import { Layout } from "./layout/Layout/Layout";
+import { Layout } from "./layout/Layout/Layout.tsx";
 import { AuthLayout } from "./layout/Auth/AuthLayout";
 import { Product } from "./pages/Product/Product";
 import axios from "axios";
